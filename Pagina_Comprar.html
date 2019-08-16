@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>PRODUCTO</title>
+</head>
+
+<body>
+    <header>
+       <!-- Barra de navegacion -->
+       <nav class="navbar navbar-expand-lg navbar-dark estilos_nav fixed-top" style="background-color: teal">
+            <div class="collapse navbar-collapse d-flex justify-content-center">
+                <div class="navbar-nav links_nav">
+                    <a class="nav-item nav-link active "
+                        href="file:///C:/Users/Luis/Desktop/cintaBLANCA32/11_PROYECTO/Pagina_Principal.html  ">Home
+                        <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active"
+                        href="file:///C:/Users/Luis/Desktop/cintaBLANCA32/11_PROYECTO/Pagina_Producto.html">Tienda<span
+                            class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" href="file:///C:/Users/Luis/Desktop/cintaBLANCA32/11_PROYECTO/Pagina_Comprar.html">Carrito<span
+                            class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active"
+                        href="file:///C:/Users/Luis/Desktop/cintaBLANCA32/11_PROYECTO/Pagina_Contacto.html">Contacto
+                        <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active"
+                        href="file:///C:/Users/Luis/Desktop/cintaBLANCA32/11_PROYECTO/Pagina_Ayuda.html">Ayuda
+                        <span class="sr-only">(current)</span></a>
+                </div>
+            </div>
+        </nav> <br><br><br><br>   
+    </header>
+
+    <main>
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title></title>
+                <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+                <script>
+                    window.onload = function () {
+                        let baseDeDatos = [
+                            {
+                                id: 1,
+                                nombre: 'Flora Mandevilla',
+                                precio: 479
+                            },
+                            {
+                                id: 2,
+                                nombre: 'Planta Geranio',
+                                precio: 45
+                            },
+                            {
+                                id: 3,
+                                nombre: 'Planta Azalea',
+                                precio: 57
+                            },
+                            {
+                                id: 4,
+                                nombre: 'Planta Anthurio',
+                                precio: 179
+                                
+                            },
+                            {
+                                id: 5,
+                                nombre: 'Planta Roeo',
+                                precio: 51
+                            },
+                            {
+                                id: 6,
+                                nombre: 'Arreglo Suculentas Chicas',
+                                precio: 43 
+                            },
+                            {
+                                id: 7,
+                                nombre: 'Arreglo Suculentas Grande',
+                                precio: 54 
+                            },
+                            {
+                                id: 8,
+                                nombre: 'Planta Bacopa',
+                                precio: 69  
+                            },
+                            {
+                                id: 9,
+                                nombre: 'Planta Dracaenas',
+                                precio: 62  
+                            },
+                            {
+                                id: 10,
+                                nombre: 'Planta Aloe Coral',
+                                precio: 145  
+                            },
+                            {
+                                id: 11,
+                                nombre: 'Planta Zebrina',
+                                precio: 65  
+                            },
+                            {
+                                id: 12,
+                                nombre: 'Planta Cordyline Roja',
+                                precio: 59  
+                            },
+                             
+                        ]
+                        let $items = document.querySelector('#items');
+                        let carrito = [];
+                        let total = 0;
+                        let $carrito = document.querySelector('#carrito');
+                        let $total = document.querySelector('#total');
+                        function renderItems () {
+                            for (let info of baseDeDatos) {
+                                let miNodo = document.createElement('div');
+                                miNodo.classList.add('card', 'col-sm-4');
+
+                                let miNodoCardBody = document.createElement('div');
+                                miNodoCardBody.classList.add('card-body');
+
+                                let miNodoTitle = document.createElement('h5');
+                                miNodoTitle.classList.add('card-title');
+                                miNodoTitle.textContent = info['nombre'];
+
+                                let miNodoPrecio = document.createElement('p');
+                                miNodoPrecio.classList.add('card-text');
+                                miNodoPrecio.textContent = '$' + info['precio'];
+
+                                let miNodoBoton = document.createElement('button');
+                                miNodoBoton.classList.add('btn', 'btn-primary');
+                                miNodoBoton.textContent = '+';
+                                miNodoBoton.setAttribute('marcador', info['id']);
+                                miNodoBoton.addEventListener('click', anyadirCarrito);
+                                    
+                                miNodoCardBody.appendChild(miNodoTitle);
+                                miNodoCardBody.appendChild(miNodoPrecio);
+                                miNodoCardBody.appendChild(miNodoBoton);
+                                miNodo.appendChild(miNodoCardBody);
+                                $items.appendChild(miNodo);
+                            }
+                        }
+                        function anyadirCarrito () {
+                            carrito.push(this.getAttribute('marcador'))
+                            calcularTotal();
+                            renderizarCarrito();
+                        }
+                        function renderizarCarrito () {
+                            $carrito.textContent = '';
+                            carrito.forEach(function (item, indice) {
+                                let miItem = baseDeDatos.filter(function(itemBaseDatos) {
+                                    return itemBaseDatos['id'] == item;
+                                });
+                                let miNodo = document.createElement('li');
+                                miNodo.classList.add('list-group-item', 'text-right');
+                                miNodo.textContent = `${miItem[0]['nombre']} - ${miItem[0]['precio']}$`;
+                                let miBoton = document.createElement('button');
+                                miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+                                miBoton.textContent = 'X';
+                                miBoton.setAttribute('posicion', indice);
+                                miBoton.addEventListener('click', borrarItemCarrito);
+                                miNodo.appendChild(miBoton);
+                                $carrito.appendChild(miNodo);
+                            })
+                        }
+                        function borrarItemCarrito () {
+                            let posicion = this.getAttribute('posicion');
+                            carrito.splice(posicion, 1);
+                            renderizarCarrito();
+                            calcularTotal();
+                        }
+                        function calcularTotal () {
+                            total = 0;
+                            for (let item of carrito) {
+                                let miItem = baseDeDatos.filter(function(itemBaseDatos) {
+                                    return itemBaseDatos['id'] == item;
+                                });
+                                total = total + miItem[0]['precio'];
+                            }
+                            let totalDosDecimales = total.toFixed(2);
+                            $total.textContent = totalDosDecimales;
+                        }
+                        renderItems();
+                    } 
+                </script>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="row">
+            
+                        <main id="items" class="col-sm-8 row"></main>
+            
+                        <aside class="col-sm-4">
+                            <h2>Carrito</h2>
+            
+                            <ul id="carrito" class="list-group"></ul>
+                            <hr>
+            
+                            <p class="text-right">Total: <span id="total"></span>$</p>
+                        </aside>
+                    </div>
+                </div>
+            </body>
+            </html>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="./index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

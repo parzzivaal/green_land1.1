@@ -1,0 +1,10 @@
+.card-body > a {
+    background-color: teal ;
+    color: #fff;
+    border: solid 1px white;
+    border-radius: 0;
+}
+.card-body > a:hover {
+    background-color: #fff;
+    color: #000;
+}
